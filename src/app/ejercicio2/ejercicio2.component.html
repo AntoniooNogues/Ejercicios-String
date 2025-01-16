@@ -1,0 +1,58 @@
+<main>
+  <div class="flex flex-row gap-4 align-middle items-center ">
+    <h1 class="text-[24px]">Ejercicio 2: Gestión de pedidos en un restaurante</h1>
+    <a href="/">
+      <button class="my-3 ring-none items-center justify-center hover:opacity-95 disabled:opacity-50 rounded-lg py-1 px-2 font-dm focus:outline-none !ring-transparent text-black border border-black border-b-black border-b-4 hover:border active:border bg-white hover:text-black hover:bg-gray-50 active:bg-gray-100  focus-visible:outline-black-500 focus-visible:ring-black-700 text-sm sm:text-base">Volver atras</button>
+    </a>
+  </div>
+
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Restaurante</h1>
+
+    <h2 class="text-2xl font-semibold mb-2">Agregar Pedido</h2>
+    <form (ngSubmit)="agregarPedido()" class="mb-4">
+      <label for="cliente" class="block mb-1">Cliente:</label>
+      <input id="cliente" [(ngModel)]="nuevoPedido.cliente" name="cliente" required class="border rounded p-2 mb-2 w-full" />
+
+      <h3 class="text-xl font-semibold mb-2">Platos</h3>
+      <div *ngFor="let plato of nuevoPedido.platos; let i = index" class="mb-2">
+        <label for="plato{{ i }}" class="block mb-1">Plato {{ i + 1 }}:</label>
+        <input id="plato{{ i }}" [(ngModel)]="plato.nombre" name="plato{{ i }}" required class="border rounded p-2 mb-2 w-full" />
+        <label for="precio{{ i }}" class="block mb-1">Precio:</label>
+        <input id="precio{{ i }}" type="number" [(ngModel)]="plato.precio" name="precio{{ i }}" required class="border rounded p-2 mb-2 w-full" />
+      </div>
+      <button type="button" (click)="agregarPlato()" class="bg-blue-500 text-white rounded p-2 mr-2">Agregar Plato</button>
+      <button type="submit" class="bg-green-500 text-white rounded p-2">Agregar Pedido</button>
+    </form>
+
+    <h2 class="text-2xl font-semibold mb-2">Total de Ventas: {{ totalVentas() }} €</h2>
+
+    <h2 class="text-2xl font-semibold mb-2">Pedidos por Cliente</h2>
+    <label for="buscarCliente" class="block mb-1">Nombre del Cliente:</label>
+    <input id="buscarCliente" [(ngModel)]="buscarCliente" name="buscarCliente" class="border rounded p-2 mb-2 w-full" />
+    <button (click)="buscarPedidos()" class="bg-blue-500 text-white rounded p-2 mb-4">Buscar</button>
+    <div *ngFor="let pedido of pedidosFiltrados" class="mb-2">
+      <p>ID: {{ pedido.id }}, Cliente: {{ pedido.cliente }}, Total: {{ pedido.calcularTotal() }}</p>
+    </div>
+
+    <h2 class="text-2xl font-semibold mb-2">Filtrar Pedidos por Total</h2>
+    <label for="precioFiltro" class="block mb-1">Precio Mínimo:</label>
+    <input id="precioFiltro" type="number" [(ngModel)]="precioFiltro" name="precioFiltro" class="border rounded p-2 mb-2 w-full" />
+    <button (click)="filtrarPorPrecio()" class="bg-blue-500 text-white rounded p-2 mb-4">Filtrar</button>
+    <div *ngFor="let pedido of pedidosFiltrados" class="mb-2">
+      <p>ID: {{ pedido.id }}, Cliente: {{ pedido.cliente }}, Total: {{ pedido.calcularTotal() }}</p>
+    </div>
+
+    <h2 class="text-2xl font-semibold mb-2">Lista de Pedidos</h2>
+    <div *ngFor="let pedido of restaurante.pedidos" class="mb-4">
+      <p>ID: {{ pedido.id }}, Cliente: {{ pedido.cliente }}, Total: {{ pedido.calcularTotal() }}</p>
+      <ul class="list-disc pl-5">
+        <li *ngFor="let plato of pedido.platos">
+          {{ plato.nombre }} - {{ plato.precio }}€
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+</main>

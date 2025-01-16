@@ -1,0 +1,49 @@
+<main>
+  <div class="flex flex-row gap-4 align-middle items-center ">
+    <h1 class="text-[24px]">Ejercicio 5: Banco de clientes</h1>
+    <a href="/">
+      <button class="my-3 ring-none items-center justify-center hover:opacity-95 disabled:opacity-50 rounded-lg py-1 px-2 font-dm focus:outline-none !ring-transparent text-black border border-black border-b-black border-b-4 hover:border active:border bg-white hover:text-black hover:bg-gray-50 active:bg-gray-100  focus-visible:outline-black-500 focus-visible:ring-black-700 text-sm sm:text-base">Volver atras</button>
+    </a>
+  </div>
+
+  <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+    <div class="">
+      <h2 class="text-xl font-bold mb-2">Clientes del Banco</h2>
+      <ul class="list-disc list-inside">
+        <li *ngFor="let cliente of banco.clientes" class="mb-1">
+          {{ cliente.estadoCliente() }}
+        </li>
+      </ul>
+      <h3 class="text-lg font-semibold mt-4">Saldo total del banco: {{ banco.calcularSaldoTotal() }}€</h3>
+    </div>
+
+    <div class="mt-4">
+      <h2 class="text-xl font-bold mb-2">Agregar Cliente</h2>
+      <form (ngSubmit)="agregarCliente()">
+        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
+        <input type="text" [(ngModel)]="nuevoClienteNombre" name="nombre" id="nombre" placeholder="Nombre" required class="border rounded p-2 mb-2 w-full">
+        <label for="saldo" class="block text-sm font-medium text-gray-700">Saldo:</label>
+        <input type="number" [(ngModel)]="nuevoClienteSaldo" name="saldo" id="saldo" placeholder="Saldo" required class="border rounded p-2 mb-2 w-full">
+        <button type="submit" class="btn bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Agregar Cliente</button>
+      </form>
+    </div>
+
+    <div class="mt-4">
+      <h2 class="text-xl font-bold mb-2">Operaciones</h2>
+      <form (ngSubmit)="realizarDeposito()">
+        <label for="clienteId" class="block text-sm font-medium text-gray-700">Id del cliente:</label>
+        <input type="number" [(ngModel)]="clienteId" name="clienteId" id="clienteId" placeholder="ID Cliente" required class="border rounded p-2 mb-2 w-full">
+        <label for="cantidad" class="block text-sm font-medium text-gray-700">Cantidad:</label>
+        <input type="number" [(ngModel)]="cantidad" name="cantidad" id="cantidad" placeholder="Cantidad" required class="border rounded p-2 mb-2 w-full">
+        <button type="submit" class="btn bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Depositar</button>
+      </form>
+      <form (ngSubmit)="realizarRetiro()" class="mt-2">
+        <label for="clienteIdRetiro" class="block text-sm font-medium text-gray-700">Id del cliente:</label>
+        <input type="number" [(ngModel)]="clienteId" name="clienteId" id="clienteIdRetiro" placeholder="ID Cliente" required class="border rounded p-2 mb-2 w-full">
+        <label for="cantidadRetiro" class="block text-sm font-medium text-gray-700">Cantidad:</label>
+        <input type="number" [(ngModel)]="cantidad" name="cantidad" id="cantidadRetiro" placeholder="Cantidad" required class="border rounded p-2 mb-2 w-full">
+        <button type="submit" class="btn bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">Retirar</button>
+      </form>
+    </div>
+  </div>
+</main>

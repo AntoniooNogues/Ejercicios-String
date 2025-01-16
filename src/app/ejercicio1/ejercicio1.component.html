@@ -1,0 +1,65 @@
+<main>
+  <div class="flex flex-row gap-4 align-middle items-center ">
+    <h1 class="text-[24px]">Ejercicio 1: Catálogo de películas</h1>
+    <a href="/">
+      <button class="my-3 ring-none items-center justify-center hover:opacity-95 disabled:opacity-50 rounded-lg py-1 px-2 font-dm focus:outline-none !ring-transparent text-black border border-black border-b-black border-b-4 hover:border active:border bg-white hover:text-black hover:bg-gray-50 active:bg-gray-100  focus-visible:outline-black-500 focus-visible:ring-black-700 text-sm sm:text-base">Volver atras</button>
+    </a>
+  </div>
+
+  <div class="my-2 flex flex-row flex-wrap gap-2 items-center">
+    <label for="buscar">Buscar peliculas por género: </label>
+    <input type="text" id="buscar" name="buscar" [(ngModel)]="buscar" class="border-black border-2 rounded-lg py-1 px-2 w-fit">
+    <button  (click)="buscarPeliculaGenero()" class="ring-none items-center justify-center hover:opacity-95 disabled:opacity-50 rounded-lg py-1 px-2 font-dm focus:outline-none !ring-transparent text-violet-800 border border-violet-500 border-b-violet-400 border-b-4 hover:border active:border bg-white hover:text-violet-900 hover:bg-gray-50 active:bg-gray-100 active:text-violet-600 focus-visible:outline-violet-600 focus-visible:ring-violet-700 text-sm sm:text-base">
+      Buscar
+    </button>
+    <button (click)="refrescarCatalogo()"class="ring-none items-center justify-center hover:opacity-95 disabled:opacity-50 rounded-lg py-1 px-2 font-dm focus:outline-none !ring-transparent text-violet-800 border border-violet-500 border-b-violet-400 border-b-4 hover:border active:border bg-white hover:text-violet-900 hover:bg-gray-50 active:bg-gray-100 active:text-violet-600 focus-visible:outline-violet-600 focus-visible:ring-violet-700 text-sm sm:text-base">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#a78bfa"><path d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z"/></svg>
+    </button>
+  </div>
+
+  <p class="py-2"><span class="font-black">Media de valoraciones de todas las películas del catálogo: </span> {{ calcularCalificacionMedia()}}</p>
+
+  <div>
+    <p class="text-2xl py-2">Catálogo de peliculas: </p>
+    <ul class="flex flex-row flex-wrap gap-4 align-middle justify-center">
+      <li *ngFor="let pelicula of catalogo" class="flex flex-col flex-wrap gap-4 border-2 border-black p-2 text-justify bg-violet-300 w-1/6">
+        <p class="text-xl text-center">{{ pelicula.titulo }}</p>
+        <p><span class="font-bold">Director: </span>{{ pelicula.director }}</p>
+        <p><span class="font-bold">Año: </span>{{ pelicula.estreno }}</p>
+        <p><span class="font-bold">Género: </span>{{ pelicula.genero }}</p>
+        <p><span class="font-bold">Calificación: </span>{{ pelicula.calificacion }}</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="my-2 text-lg">
+    <p class="text-2xl py-2">Películas mejores valoradas:</p>
+    <ul class="flex flex-row flex-wrap gap-4 align-middle justify-center">
+      <li *ngFor="let pelicula of listaMejoresCalificadas; let i = index" [ngClass]="{'bg-[#d8c368]': i === 0, 'bg-[#a0a0a0]': i === 1, 'bg-[#966325]': i === 2}" class="w-1/6 flex flex-col flex-wrap gap-4 border-2 border-black p-2 text-justify">
+        <p class="text-xl text-center">{{ pelicula.titulo }}</p>
+        <p><span class="font-bold">Director: </span>{{ pelicula.director }}</p>
+        <p><span class="font-bold">Año: </span>{{ pelicula.estreno }}</p>
+        <p><span class="font-bold">Género: </span>{{ pelicula.genero }}</p>
+        <p><span class="font-bold">Calificación: </span>{{ pelicula.calificacion }}</p>
+      </li>
+    </ul>
+  </div>
+
+  <form action="actualizarPelícula" class="flex flex-col gap-2.5">
+    <div class="py-2">
+      <p class="text-2xl py-2">Actualizar película:</p>
+    </div>
+    <div class="flex flex-row gap-4 items-center ">
+      <label for="pelicula">Nombre de la película:</label>
+      <input type="text" name="pelicula" id="pelicula" [(ngModel)]="nombrePelicula" class="px-2 py-1 border-2 border-black rounded-lg">
+    </div>
+    <div class="flex flex-row gap-4 items-center ">
+      <label for="calificacion">Nueva Calificación:</label>
+      <input type="text" name="calificacion" id="calificacion" [(ngModel)]="nuevaCalificacion" class="px-2 py-1 border-2 border-black rounded-lg">
+    </div>
+    <button type="submit" class="px-2 py-1 border-2 border-black rounded-lg w-fit" (click)="actualizarCalificacion()">Guardar</button>
+  </form>
+</main>
+
+
+<p *ngIf="mensajeError" class="text-red-600 font-bold fixed bottom-5 right-5 border-red-900 border-2 rounded-lg py-1 px-2 bg-white fade-out">{{mensajeError}}</p>

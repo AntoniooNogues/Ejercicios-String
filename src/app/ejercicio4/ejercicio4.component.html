@@ -1,0 +1,24 @@
+<main>
+  <div class="flex flex-row gap-4 align-middle items-center ">
+    <h1 class="text-[24px]">Ejercicio 4: Biblioteca de palabras clave</h1>
+    <a href="/">
+      <button class="my-3 ring-none items-center justify-center hover:opacity-95 disabled:opacity-50 rounded-lg py-1 px-2 font-dm focus:outline-none !ring-transparent text-black border border-black border-b-black border-b-4 hover:border active:border bg-white hover:text-black hover:bg-gray-50 active:bg-gray-100  focus-visible:outline-black-500 focus-visible:ring-black-700 text-sm sm:text-base">Volver atras</button>
+    </a>
+  </div>
+
+  <div class="mt-4">
+    <input [(ngModel)]="palabra" placeholder="Ingrese una palabra" class="border rounded p-2 mb-2 w-full" />
+    <textarea [value]="mensaje" class="p-2 my-2 border-2 rounded disabled:bg-gray-700 w-full font-semibold text-white resize-none ubuntu" disabled ></textarea>
+    <div class="flex gap-2">
+      <button (click)="buscarPalabra(listaPalabras, palabra)" class="bg-blue-500 text-white rounded p-2">Buscar Palabra</button>
+      <button (click)="addPalabraNoDuplicada(listaPalabras, palabra)" class="bg-green-500 text-white rounded p-2">Añadir Palabra</button>
+      <button (click)="listaPalabras = ordernarAlfabeticamente(listaPalabras)" class="bg-yellow-500 text-white rounded p-2">Ordenar Alfabéticamente</button>
+    </div>
+    <div class="mt-4">
+      <h2 class="text-lg">Lista de Palabras:</h2>
+      <ul class="list-disc pl-5">
+        <li *ngFor="let palabra of listaPalabras">{{ palabra }}</li>
+      </ul>
+    </div>
+  </div>
+</main>
